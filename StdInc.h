@@ -13,6 +13,11 @@
 #include <cstring>
 #include <dbt.h>
 
+#include <setupapi.h>
+
+#include <initguid.h>
+#include <Usbiodef.h>
+
 #pragma comment(lib, "Wtsapi32.lib")
 #pragma comment(lib, "Userenv.lib")
 #pragma comment(lib, "Ws2_32.lib")

@@ -112,21 +112,18 @@ VOID ServiceMain(DWORD argc, LPTSTR* argv)
     ZeroMemory(&NotificationFilter, sizeof(NotificationFilter));
     NotificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
     NotificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+    NotificationFilter.dbcc_classguid = GUID_DEVINTERFACE_USB_DEVICE;
+
     CLogger::Instance()->Printf(LOG_SEVERITY_INFO, "Service started");
 
     g_pKitSVC = new CKitSVC;
-    
-    if (RegisterDeviceNotificationW(g_StatusHandle, &NotificationFilter, DEVICE_NOTIFY_SERVICE_HANDLE | DEVICE_NOTIFY_ALL_INTERFACE_CLASSES) == 0)
+    if (RegisterDeviceNotificationW(g_StatusHandle, &NotificationFilter, DEVICE_NOTIFY_SERVICE_HANDLE) == 0)
     {
         CLogger::Instance()->Printf(LOG_SEVERITY_CRITICAL, "Failed to register USB filter");
     }
 
     ServiceReportStatus(SERVICE_RUNNING, NO_ERROR, 0);
-    
-    CNotification::Instance()->SendNotificationNow(L"На компьютере R112-03 была изъята переферия!");
-
     ServiceWorkerThread();
-
     ServiceReportStatus(SERVICE_STOPPED, NO_ERROR, 0);
 }
 

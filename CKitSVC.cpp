@@ -166,6 +166,9 @@ void CKitSVC::OnDeviceEvent(DWORD dwEventType, LPVOID lpEventData)
             auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>(lpEventData);
             if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE) {
                 auto pDevInf = reinterpret_cast<PDEV_BROADCAST_DEVICEINTERFACE>(lpEventData);
+                
+                CLogger::Instance()->Printf(LOG_SEVERITY_WARNING, "Peripheral inserted - %ws", pDevInf->dbcc_name);
+
                 SKitMessage msg;
                 msg.szInfoType = INFO_TYPE_PEREPHERY_INSERTED;
                 memset(msg.szComputerName, 0, 16);
@@ -178,7 +181,8 @@ void CKitSVC::OnDeviceEvent(DWORD dwEventType, LPVOID lpEventData)
             auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>(lpEventData);
             if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE) {
                 auto pDevInf = reinterpret_cast<PDEV_BROADCAST_DEVICEINTERFACE>(lpEventData);
-               
+                CLogger::Instance()->Printf(LOG_SEVERITY_WARNING, "Peripheral removed - %ws", pDevInf->dbcc_name);
+
             }
             break;
         }
