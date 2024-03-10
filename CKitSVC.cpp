@@ -119,7 +119,7 @@ DWORD CKitSVC::ServerThread(LPVOID lpParameter)
                         switch (message->szInfoType)
                         {
                         case INFO_TYPE_PEREPHERY_INSERTED:
-                            swprintf_s(szReport, L"На компьютере %s была вставлена переферия!", szPcName);
+                            swprintf_s(szReport, L"На компьютере %hs была вставлена переферия!", szPcName);
                             break;
                         default:
                             bGot = false;
