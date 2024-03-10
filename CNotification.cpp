@@ -1,4 +1,4 @@
-#include "StdInc.h"
+Ôªø#include "StdInc.h"
 
 CNotification* CNotification::m_pInstance = nullptr;
 CNotification* CNotification::Instance()
@@ -39,9 +39,9 @@ void CNotification::ShowNotification(const wchar_t* message)
     nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP | NIF_INFO;
     nid.uCallbackMessage = WM_USER + 1;
     nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    wcscpy_s(nid.szTip, L"”‚Â‰ÓÏÎÂÌËÂ"); 
+    wcscpy_s(nid.szTip, L"–£–≤–µ–¥–æ–º–ª–µ–Ω–∏–µ"); 
     wcscpy_s(nid.szInfo, message); 
-    wcscpy_s(nid.szInfoTitle, L"—œ¡ »“"); 
+    wcscpy_s(nid.szInfoTitle, L"–°–ü–ë–ö–ò–¢"); 
     nid.uTimeout = 10000;
     nid.hIcon = LoadIcon(NULL, IDI_WARNING);
 

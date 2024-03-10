@@ -1,4 +1,4 @@
-#include "StdInc.h"
+Ôªø#include "StdInc.h"
 
 #include <tchar.h>
 
@@ -123,7 +123,7 @@ VOID ServiceMain(DWORD argc, LPTSTR* argv)
 
     ServiceReportStatus(SERVICE_RUNNING, NO_ERROR, 0);
     
-    CNotification::Instance()->SendNotificationNow(L"Õ‡ ÍÓÏÔ¸˛ÚÂÂ R112-03 ·˚Î‡ ËÁ˙ˇÚ‡ ÔÂÂÙÂËˇ!");
+    CNotification::Instance()->SendNotificationNow(L"–ù–∞ –∫–æ–º–ø—å—é—Ç–µ—Ä–µ R112-03 –±—ã–ª–∞ –∏–∑—ä—è—Ç–∞ –ø–µ—Ä–µ—Ñ–µ—Ä–∏—è!");
 
     ServiceWorkerThread();
 

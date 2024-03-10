@@ -1,4 +1,4 @@
-#include "StdInc.h"
+п»ї#include "StdInc.h"
 
 CKitSVC::CKitSVC()
 {
@@ -119,7 +119,7 @@ DWORD CKitSVC::ServerThread(LPVOID lpParameter)
                         switch (message->szInfoType)
                         {
                         case INFO_TYPE_PEREPHERY_INSERTED:
-                            swprintf_s(szReport, L"На компьютере %s была вставлена переферия!", szPcName);
+                            swprintf_s(szReport, L"РќР° РєРѕРјРїСЊСЋС‚РµСЂРµ %s Р±С‹Р»Р° РІСЃС‚Р°РІР»РµРЅР° РїРµСЂРµС„РµСЂРёСЏ!", szPcName);
                             break;
                         default:
                             bGot = false;

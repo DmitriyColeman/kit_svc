@@ -1,4 +1,4 @@
-#include "StdInc.h"
+﻿#include "StdInc.h"
 
 CLogger* CLogger::m_pInstance = nullptr;
 CLogger* CLogger::Instance()
