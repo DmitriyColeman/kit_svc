@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 enum ELogSeverity {
 	LOG_SEVERITY_DEBUG,

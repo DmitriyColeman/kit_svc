@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 enum EInfoType {
 	INFO_TYPE_ERROR_DROP_ME,
