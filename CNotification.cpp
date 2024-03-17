@@ -45,8 +45,8 @@ void CNotification::ShowNotification(const wchar_t* message)
     nid.uTimeout = 10000;
     nid.hIcon = LoadIcon(NULL, IDI_WARNING);
 
-    Shell_NotifyIcon(NIM_ADD, &nid);
-    Sleep(10000);
+    Shell_NotifyIconW(NIM_ADD, &nid);
+    Sleep(8000);
 
-    Shell_NotifyIcon(NIM_DELETE, &nid);
+    Shell_NotifyIconW(NIM_DELETE, &nid);
 }

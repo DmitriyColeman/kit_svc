@@ -41,5 +41,37 @@ private:
 	sockaddr_in m_pServerAddr;
 
 	void ParseComputerName(const std::string& computerName);
+	void GetMainPCIP()
+	{
+		char szNetBIOS[16];
+		sprintf_s(szNetBIOS, 16, "R%d-MAIN", m_iCabinetNumber);
+		if (!ResolveHostNameToIP(szNetBIOS))
+		{
+			CLogger::Instance()->Printf(LOG_SEVERITY_WARNING, "Failed to resolve %s to ip address. Trying DNS name", szNetBIOS);
+			char szDomain[128];
+			sprintf_s(szDomain, 128, "R%d-MAIN.kit.domain", m_iCabinetNumber);
+			if (!ResolveHostNameToIP(szDomain))
+			{
+				CLogger::Instance()->Printf(LOG_SEVERITY_WARNING, "Failed to resolve %s to ip address.", szDomain);
+			}
+		}
+	}
+
+	bool ResolveHostNameToIP(const char* hostname) {
+		struct addrinfo hints, * res;
+
+		memset(&hints, 0, sizeof(hints));
+		hints.ai_family = AF_INET; 
+		hints.ai_socktype = SOCK_STREAM;
+
+		if (getaddrinfo(hostname, NULL, &hints, &res) != 0) {
+			return false;
+		}
+
+		m_pServerAddr = *((struct sockaddr_in*)res->ai_addr);
+		freeaddrinfo(res);
+
+		return true;
+	}
 };
 

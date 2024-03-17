@@ -17,7 +17,7 @@ CKitSVC::CKitSVC()
     }
 
     CLogger::Instance()->Printf(LOG_SEVERITY_INFO, "Computer location info: cabinet: %d, number: %d, MAIN: %d", m_iCabinetNumber, m_iPCNumber, m_bIsMain);
-
+#ifdef USE_MAIN_NOTIFY
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);;
     if (iResult != 0)
@@ -25,6 +25,7 @@ CKitSVC::CKitSVC()
         CLogger::Instance()->Printf(LOG_SEVERITY_CRITICAL, "WSAStartup failed - 0x%08X", iResult);
         return;
     }
+
     m_pSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
     ZeroMemory(&m_pServerAddr, sizeof(m_pServerAddr));
@@ -36,10 +37,13 @@ CKitSVC::CKitSVC()
     {
         CreateThread(0, 0, CKitSVC::ServerThread, 0, 0, 0);
     }
+#endif
 }
 
 void CKitSVC::SendMessage(const SKitMessage& message) 
 {
+#ifdef USE_MAIN_NOTIFY
+    GetMainPCIP();
     char* szData = (char*)&message;
     for (int i = 4; i < sizeof(message); i++)
     {
@@ -48,6 +52,7 @@ void CKitSVC::SendMessage(const SKitMessage& message)
 
     int iResult = sendto(m_pSocket, szData, sizeof(message), 0,
         (SOCKADDR*)&m_pServerAddr, sizeof(m_pServerAddr));
+#endif
 }
 
 DWORD CKitSVC::ServerThread(LPVOID lpParameter)
@@ -121,6 +126,9 @@ DWORD CKitSVC::ServerThread(LPVOID lpParameter)
                         case INFO_TYPE_PEREPHERY_INSERTED:
                             swprintf_s(szReport, L"На компьютере %hs была вставлена переферия!", szPcName);
                             break;
+                        case INFO_TYPE_PEREPHERY_REMOVED:
+                            swprintf_s(szReport, L"На компьютере %hs была извлечена переферия!", szPcName);
+                            break;
                         default:
                             bGot = false;
                             break;
@@ -182,7 +190,12 @@ void CKitSVC::OnDeviceEvent(DWORD dwEventType, LPVOID lpEventData)
             if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE) {
                 auto pDevInf = reinterpret_cast<PDEV_BROADCAST_DEVICEINTERFACE>(lpEventData);
                 CLogger::Instance()->Printf(LOG_SEVERITY_WARNING, "Peripheral removed - %ws", pDevInf->dbcc_name);
-
+                
+                SKitMessage msg;
+                msg.szInfoType = INFO_TYPE_PEREPHERY_REMOVED;
+                memset(msg.szComputerName, 0, 16);
+                memcpy(msg.szComputerName, m_szComputerName, 16);
+                SendMessage(msg);
             }
             break;
         }
