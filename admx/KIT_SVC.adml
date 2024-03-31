@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitionResources revision="1.0" schemaVersion="1.0">
+  <displayName>KIT Policies</displayName>
+  <description>This file provides display names and help texts for KIT policies.</description>
+  <resources>
+    <stringTable>
+      <!-- Policy Display Names -->
+      <string id="KIT_Policies">KIT</string>
+      <string id="EnableBeaconSending_Name">Configure beacon sending</string>
+
+      <!-- Policy Descriptions -->
+      <string id="KIT_Policies_Explain">Settings for custom KIT policies.</string>
+      <string id="EnableBeaconSending_Explain">This setting is responsible for the operation of a beacon that confirms that a college computer is indeed connected to the college network.
+* Host: Enter the server address to which the beacon will be sent.
+* Port: Enter the port number (from 1 to 65535).
+* Interval: Enter the interval in seconds at which the beacon will be sent.
+
+If this policy is disabled or not configured, the beacon will not be sent.
+      </string>
+    </stringTable>
+
+    <!-- PRESENTATION -->
+    <presentationTable>
+      <presentation id="EnableBeaconSending_Presentation">
+        <textBox refId="BeaconHost_Box">
+          <label>Enter the host IP or FQDN for beacon sending</label>
+        </textBox>
+        <decimalTextBox refId="BeaconPort_Box">Enter the port number for beacon sending</decimalTextBox>
+        <decimalTextBox refId="BeaconInterval_Box">Enter the interval (in seconds) for beacon sending</decimalTextBox>
+      </presentation>
+    </presentationTable>
+
+  </resources>
+</policyDefinitionResources>

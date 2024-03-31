@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policyDefinitions xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions" version="1.0" revision="1.0" schemaVersion="1.0">
+  <policyNamespaces>
+    <target namespace="KIT.Policies" prefix="KIT"/>
+    <using namespace="Microsoft.Policies.Windows" prefix="Windows"/>
+  </policyNamespaces>
+
+  <resources minRequiredRevision="1.0"/>
+  
+  <categories>
+    <category name="KIT_Policies" displayName="$(string.KIT_Policies)" explainText="$(string.KIT_Policies_Explain)">
+    
+    </category>
+  </categories>
+
+  <policies>
+    <policy name="EnableBeaconSending" class="Machine" displayName="$(string.EnableBeaconSending_Name)" explainText="$(string.EnableBeaconSending_Explain)" key="SOFTWARE\Policies\KIT\Beacon" presentation="$(presentation.EnableBeaconSending_Presentation)">
+      <parentCategory ref="KIT:KIT_Policies"/>
+      <supportedOn ref="Windows:SUPPORTED_Windows7"/>
+
+      <elements>
+        <text id="BeaconHost_Box" valueName="BeaconHost"/>
+        <decimal id="BeaconPort_Box" valueName="BeaconPort" minValue="1" maxValue="1440" required="true"/>
+        <decimal id="BeaconInterval_Box" valueName="BeaconInterval" minValue="1" maxValue="1440" required="true"/>
+      </elements>
+    </policy>
+  </policies>
+</policyDefinitions>

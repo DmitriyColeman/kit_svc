@@ -3,8 +3,8 @@
 CKitSVC::CKitSVC()
 {
     DWORD size = sizeof(m_szComputerName) / sizeof(m_szComputerName[0]);
-    //GetComputerNameA(szComputerName, &size);
-    strcpy_s(m_szComputerName, "R112-MAIN");
+    GetComputerNameA(m_szComputerName, &size);
+    //strcpy_s(m_szComputerName, "R112-MAIN");
 
     std::string strComputerName(m_szComputerName);
     ParseComputerName(strComputerName);
